@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import Header from "./components/Header";
+import ProductPage from "./components/ProductPage";
+import WishlistPage from "./components/WishlistPage";
+import CartProduct from "./components/CartProduct";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [wishlistProduct, setwishlistProduct] = useState([]);
+	const [cartProduct, setcartProduct] = useState([]);
+	const [viewMode, setviewMode] = useState(0);
+	return (
+		<div className="App">
+			<Header viewMode={viewMode} setviewMode={setviewMode} />
+			{viewMode === 0 ? (
+				<ProductPage
+					cartProduct={cartProduct}
+					setcartProduct={setcartProduct}
+					wishlistProduct={wishlistProduct}
+					setwishlistProduct={setwishlistProduct}
+				/>
+			) : viewMode === 1 ? (
+				<WishlistPage
+					wishlistProduct={wishlistProduct}
+					setwishlistProduct={setwishlistProduct}
+					cartProduct={cartProduct}
+					setcartProduct={setcartProduct}
+				/>
+			) : viewMode === 2 ? (
+				<CartProduct
+					cartProduct={cartProduct}
+					setcartProduct={setcartProduct}
+					wishlistProduct={wishlistProduct}
+					setwishlistProduct={setwishlistProduct}
+				/>
+			) : (
+				""
+			)}
+		</div>
+	);
 }
 
 export default App;
